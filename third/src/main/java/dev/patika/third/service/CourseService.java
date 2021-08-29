@@ -1,6 +1,6 @@
 package dev.patika.third.service;
 
-import dev.patika.third.dao.BaseDAO;
+import dev.patika.third.dao.CourseDAO;
 import dev.patika.third.entity.Course;
 import org.springframework.stereotype.Service;
 
@@ -11,17 +11,17 @@ import java.util.List;
 @Service
 public class CourseService implements BaseService<Course> {
 
-    private final BaseDAO baseDAO;
+    private final CourseDAO courseDAO;
 
-    public CourseService(BaseDAO baseDAO) {
-        this.baseDAO = baseDAO;
+    public CourseService(CourseDAO courseDAO) {
+        this.courseDAO = courseDAO;
     }
 
     @Override
     @Transactional
     public List<Course> findAll() {
         List<Course> courseList = new ArrayList<>();
-        Iterable<Course> courseIter = baseDAO.findAll();
+        Iterable<Course> courseIter = courseDAO.findAll();
         for (Course course : courseIter) {
             courseList.add(course);
         }
@@ -31,21 +31,23 @@ public class CourseService implements BaseService<Course> {
     @Override
     @Transactional
     public Course findById(int id) {
-        return baseDAO.findById(id).get();
+        return courseDAO.findById(id).get();
     }
 
     @Override
+    @Transactional
     public Course save(Course course) {
-        return baseDAO.save(course);
+        return courseDAO.save(course);
     }
 
     @Override
     public void deleteById(int id) {
-        baseDAO.deleteById(id);
+        courseDAO.deleteById(id);
     }
 
     @Override
+    @Transactional
     public Course update(Course course) {
-        return null;
+        return courseDAO.save(course);
     }
 }

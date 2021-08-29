@@ -1,41 +1,52 @@
 package dev.patika.third.service;
 
-import dev.patika.third.dao.BaseDAO;
+import dev.patika.third.dao.CourseDAO;
+import dev.patika.third.dao.InstructorDAO;
+import dev.patika.third.entity.Instructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class InstructorService implements BaseService {
+public class InstructorService implements BaseService<Instructor> {
 
-    private final BaseDAO baseDAO;
+    private final InstructorDAO instructorDAO;
 
-    public InstructorService(BaseDAO baseDAO) {
-        this.baseDAO = baseDAO;
+    public InstructorService(InstructorDAO instructorDAO) {
+        this.instructorDAO = instructorDAO;
     }
 
     @Override
-    public List findAll() {
-        return null;
+    public List<Instructor> findAll() {
+        List<Instructor> instructorList = new ArrayList<>();
+        Iterable<Instructor> instructorIter = instructorDAO.findAll();
+        for (Instructor instructor : instructorIter) {
+            instructorList.add(instructor);
+        }
+        return instructorList;
     }
 
     @Override
-    public Object findById(int id) {
-        return null;
+    public Instructor findById(int id) {
+        return instructorDAO.findById(id).get();
     }
 
     @Override
-    public Object save(Object object) {
-        return null;
+    @Transactional
+    public Instructor save(Instructor instructor) {
+        return instructorDAO.save(instructor);
     }
 
     @Override
     public void deleteById(int id) {
-
+        instructorDAO.deleteById(id);
     }
 
     @Override
-    public Object update(Object object) {
-        return null;
+    @Transactional
+    public Instructor update(Instructor instructor) {
+        return instructorDAO.save(instructor);
     }
 }
