@@ -2,10 +2,9 @@ package dev.patika.third.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 //@AllArgsConstructor
 //@NoArgsConstructor
@@ -24,4 +23,10 @@ public class Course {
     private String courseName;
     private int courseCode;
     private int courseCreditPoint;
+
+    @ManyToMany
+    private List<Student> students = new ArrayList<>();
+
+    @ManyToOne
+    private Instructor instructor;
 }

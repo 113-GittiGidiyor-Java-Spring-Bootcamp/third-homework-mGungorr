@@ -1,41 +1,53 @@
 package dev.patika.third.service;
 
-import dev.patika.third.dao.BaseDAO;
+import dev.patika.third.dao.StudentDAO;
+import dev.patika.third.entity.Student;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class StudentService implements BaseService{
+public class StudentService implements BaseService<Student>{
 
-    private final BaseDAO baseDAO;
+    private final StudentDAO studentDAO;
 
-    public StudentService(BaseDAO baseDAO) {
-        this.baseDAO = baseDAO;
+    public StudentService(StudentDAO studentDAO) {
+        this.studentDAO = studentDAO;
     }
 
     @Override
-    public List findAll() {
-        return null;
+    @Transactional(readOnly = true)
+    public List<Student> findAll() {
+        List<Student> studentList = new ArrayList<>();
+        Iterable<Student> studentIter = studentDAO.findAll();
+        for (Student student : studentIter) {
+            studentList.add(student);
+        }
+        return studentList;
     }
 
     @Override
-    public Object findById(int id) {
-        return null;
+    @Transactional(readOnly = true)
+    public Student findById(int id) {
+        return studentDAO.findById(id).get();
     }
 
     @Override
-    public Object save(Object object) {
-        return null;
+    @Transactional
+    public Student save(Student student) {
+        return studentDAO.save(student);
     }
 
     @Override
     public void deleteById(int id) {
-
+        studentDAO.deleteById(id);
     }
 
     @Override
-    public Object update(Object object) {
-        return null;
+    @Transactional
+    public Student update(Student student) {
+        return studentDAO.save(student);
     }
 }

@@ -2,11 +2,10 @@ package dev.patika.third.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 //@AllArgsConstructor
 //@NoArgsConstructor
@@ -25,4 +24,11 @@ public class Student {
     private LocalDate studentBirthDate;
     private String studentAdress;
     private Gender gender;
+
+    @ManyToMany(mappedBy = "students")
+    private List<Course> studentCourses = new ArrayList<>();
+
+    public Student(String mehmet_doğan, LocalDate of, String ankara, Gender male) {
+
+    }
 }

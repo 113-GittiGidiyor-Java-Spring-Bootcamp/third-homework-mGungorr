@@ -35,10 +35,10 @@ public class CourseController {
         return new ResponseEntity<>(courseService.findById(id), HttpStatus.OK);
     }
 
-//    @PutMapping("/courses")
-//    public Course updateCourse(@RequestBody Course course){
-//        return courseService.update(course);
-//    }
+    @PutMapping("/courses")
+    public Course updateCourse(@RequestBody Course course){
+        return courseService.update(course);
+    }
 
     @DeleteMapping("/courses/{id}")
     public String deleteCourseById(@PathVariable int id){
@@ -51,6 +51,7 @@ public class CourseController {
 //        int empNumber = courseService.getNumberOfCourses();
 //        return "Total course number on DB : " + empNumber ;
 //    }
+
 //
 //    @GetMapping("/getAgesWithGrouping")
 //    public List<?> getAgesWithGrouping(){
